@@ -21,7 +21,7 @@
         android:padding="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@id/android:list">
+        android:id="@android:id/list">
     </ListView>
 
     <LinearLayout

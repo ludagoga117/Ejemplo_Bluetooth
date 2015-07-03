@@ -11,9 +11,6 @@
     <string name="sEnlazar">Enlazar con un dispositivo</string>
     <string name="sHelpInfo">Antes de poner a funcionar el LED, tiene que enlazar el móvil Android con el Bluetooth del Arduino.</string>
     <string name="sHelp">Ayuda</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sCancelar">Cancelar</string>
     <string name="sEnlazarPiccolo">Enlazar</string>
     <string name="sDisponibles">Dispositivos disponibles</string>
