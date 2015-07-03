@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Ejemplo Bluetooth</string>
+    <string name="sAbout">Acerca de</string>
+    <string name="sOk">Entendido</string>
+    <string name="sAboutInfo">Programado por:\nLuis David Goyes Garcés.\nluis.goyes@udea.edu.co\nEstudiante de Ingeniería Electrónica\nUniversidad de Antioquia</string>
+    <string name="sTitulo">Conecte su dispositivo Android con un Sistema Embebido Mediante Bluetooth</string>
+    <string name="sLED13">LED (pin 13)</string>
+    <string name="sButtonToggle">Bascular</string>
+    <string name="sEstadoOn">ON</string>
+    <string name="sEstadooff">OFF</string>
+    <string name="sEnlazar">Enlazar con un dispositivo</string>
+    <string name="sHelpInfo">Antes de poner a funcionar el LED, tiene que enlazar el móvil Android con el Bluetooth del Arduino.</string>
+    <string name="sHelp">Ayuda</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sCancelar">Cancelar</string>
+    <string name="sEnlazarPiccolo">Enlazar</string>
+    <string name="sDisponibles">Dispositivos disponibles</string>
+    <string name="errorSeleccion">No ha seleccionado ningún dispotivo</string>
+
+</resources>

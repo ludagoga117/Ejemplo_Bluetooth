@@ -1,0 +1,42 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.luisgoyes.ejemplobluetooth.index"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="@string/sTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/primary_dark_material_dark"
+        android:textStyle="italic"
+        android:textSize="40dp"
+        />
+    <TextView
+        android:text="@string/sLED13"
+        android:paddingTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:id="@+id/tEstado"
+        android:text="@string/sEstadooff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="#FF0000"
+        android:textStyle="bold"
+        android:textSize="100dp"
+        android:layout_gravity="center_horizontal"/>
+    <Button
+        android:id="@+id/bToggle_id"
+        android:text="@string/sButtonToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
