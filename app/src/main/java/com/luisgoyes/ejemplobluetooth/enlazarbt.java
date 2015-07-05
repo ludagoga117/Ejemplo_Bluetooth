@@ -6,6 +6,7 @@ import android.app.ListFragment;
 import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,6 +101,7 @@ public class enlazarbt extends ListFragment {
     private boolean connectRemoteDevice(BluetoothDevice device){
         boolean connect = false;
         try {
+            // SPP UUID service - this should work for most devices
             String mmUUID = "00001101-0000-1000-8000-00805F9B34FB";
             MainActivity.setsocket(device.createRfcommSocketToServiceRecord(UUID.fromString(mmUUID)));
             MainActivity.getsocket().connect();

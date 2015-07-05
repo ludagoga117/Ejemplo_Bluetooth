@@ -23,7 +23,8 @@ import java.util.Set;
 
 
 public class MainActivity extends ActionBarActivity {
-
+//https://wingoodharry.wordpress.com/2014/04/15/android-sendreceive-data-with-arduino-using-bluetooth-part-2/
+    public volatile boolean stopWorker;
     public static boolean connected = false;
     public static Button bascular;
 
@@ -50,11 +51,12 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             //Añadimos el dispositivo encontrado al adaptador del ListView.
-            String remoteName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
-            BT_devices.add(remoteName);
+            //String remoteName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
+            //BT_devices.add(remoteName);
             // Recuperamos el dispositivo detectado y lo guardamos en el array de dispositivos.
             BluetoothDevice remoteDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             btDeviceList.add(remoteDevice);
+            BT_devices.add(remoteDevice.getName()+" ("+remoteDevice.getAddress()+")");
             fragEnlazar.actualizarContenido();
         }
     };
