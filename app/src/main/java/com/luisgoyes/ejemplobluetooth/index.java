@@ -31,8 +31,8 @@ public class index extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_index, container, false);
+
         MainActivity.bascular = (Button) rootView.findViewById(R.id.bToggle_id);
-        Estado = (TextView) rootView.findViewById(R.id.tEstado);
         MainActivity.bascular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,6 +40,9 @@ public class index extends Fragment {
             }
         });
         MainActivity.bascular.setEnabled(MainActivity.connected);
+
+        Estado = (TextView) rootView.findViewById(R.id.tEstado);
+
         return rootView;
     }
 
@@ -52,25 +55,29 @@ public class index extends Fragment {
     }
 
     private void ToggleButtonFunction() {
+        /* ToDo: Encender el LED del Arduino
+         * 1. Se cambia el valor de la variable ledState
+         * 2. Si el socket está disponible se intenta un envío
+         * 3. Si ledState = true, se debe enviar un digitalWrite(13,HIGH)
+         *    Si ledState = false, se debe enviar un digitalWrite(13,LOW)
+         * 4. BluetoothSocket.getOutputStream().write(Bytes) requiere un manejo de excepción
+         */
         ledState = !ledState;
         if (MainActivity.getsocket().isConnected()){
             try{
-                //MainActivity.getsocket().getOutputStream().write("L".toString().getBytes());
                 if(ledState){
                     MainActivity.getsocket().getOutputStream().write("*|1|13|1|#".getBytes());
                 }else{
                     MainActivity.getsocket().getOutputStream().write("*|1|13|0|#".getBytes());
                 }
-            }
-            catch (IOException e)
-            {
-                msg("Error");
+            }catch (IOException e){
+                msgToast("Error en envío del comando");
             }
         }
         setEstadoText();
     }
 
-    private void msg(String s){
+    private void msgToast(String s){
         Toast.makeText(getActivity().getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 }
