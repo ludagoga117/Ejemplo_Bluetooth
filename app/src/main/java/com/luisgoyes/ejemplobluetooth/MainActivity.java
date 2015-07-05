@@ -56,12 +56,7 @@ public class MainActivity extends ActionBarActivity {
              * 2. Añadimos el nombre y la dirección del dispositivo encontrado al adaptador del ListView
              * 3. Actualizamos el contenido del ListView
              */
-            if ( BluetoothDevice.ACTION_FOUND.equals(intent.getAction() ) ){
-                BluetoothDevice remoteDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                BT_devices.add(remoteDevice);
-                BT_devices_names.add(remoteDevice.getName()+" ("+remoteDevice.getAddress()+")");
-                fragEnlazar.actualizarContenido();
-            }
+
         }
     };
 
@@ -86,11 +81,11 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        /* ToDo: Registrar el BroadcastReceiver
-         * myBroadcastReceiver debe ejecutar acciones cuando se descubra un dispositivo Bluetooth
-         */
         if(myBroadcastReceiver!=null){
-            registerReceiver(myBroadcastReceiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
+            /* ToDo: Registrar el BroadcastReceiver
+             * myBroadcastReceiver debe ejecutar acciones cuando se descubra un dispositivo Bluetooth
+             */
+
         }
     }
 
@@ -125,18 +120,7 @@ public class MainActivity extends ActionBarActivity {
          * BluetoothSocket.close() requiere manejar la excepción mediante un try/catch
          * o añadiendo la excepción en la declaración del método
          */
-        if(BTsocket!=null){
-            try {
-                BTsocket.close();
-                connected = false;
-                if(bascular!=null) {
-                    bascular.setEnabled(false);
-                }
-                msgToast("Dispositivo desconectado exitosamente");
-            } catch (IOException e) {
-                msgToast("Error al desconectar el Bluetooth");
-            }
-        }
+
     }
 
     private void EnlazarMenuItem() {
@@ -150,20 +134,8 @@ public class MainActivity extends ActionBarActivity {
          * 6. Reiniciar la variable que contiene el item seleccionado (no se ha seleccionado alguno todavía).
          * 7. Inflar el fragmento de enlazar y dejar que este se encargue del resto.
          */
-        myBT = BluetoothAdapter.getDefaultAdapter();
-        if( myBT == null ){
-            msgToast("Este dispositivo NO tiene módulo Bluetooth");
-        }else{
-            if( myBT.isEnabled() == false ){
-                Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(turnBTon, 1);
-            }else{
-                desconectarBluetooth();
-                discoverBTDevices();
-                fragEnlazar.itemSelected = -1;
-                getFragmentManager().beginTransaction().replace(android.R.id.content, fragEnlazar).commit();
-            }
-        }
+
+        getFragmentManager().beginTransaction().replace(android.R.id.content, fragEnlazar).commit();
     }
 
     private void discoverBTDevices(){
@@ -172,9 +144,7 @@ public class MainActivity extends ActionBarActivity {
          * Se debe borrar la lista con los nombres de los dispositivos Bluetooth descubiertos (BT_devices_names)
          * Se comienza una nueva búsqueda de dispositivos. (Se envían paquetes "ARP" y cada dispositivo debe responder)
           */
-        BT_devices.clear();
-        BT_devices_names.clear();
-        myBT.startDiscovery();
+
     }
 
     private void HelpMenuItem() {

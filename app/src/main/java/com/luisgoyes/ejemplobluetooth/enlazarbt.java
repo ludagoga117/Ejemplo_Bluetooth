@@ -76,7 +76,7 @@ public class enlazarbt extends ListFragment {
         /* ToDo: Actualizar el contenido del adaptador del ListView
          * Cada vez que se añade un nuevo string a BT_devices_names se debe actualizar el ListView
          */
-        adapter.notifyDataSetChanged();
+
     }
 
     private void funcionCancelar() {
@@ -90,22 +90,11 @@ public class enlazarbt extends ListFragment {
          * Si se logra conexión, saldrá un mensaje indicando conexión exitosa y se retorna al fragment principal
          * Si no se logra conexión, saldrá un mensaje indicando error en conexión
          */
-        if(itemSelected==-1){
-            msgToast(getResources().getString(R.string.errorSeleccion));
-        }else if(itemSelected>=0){
-            if(connectRemoteDevice(MainActivity.getBTdevice(itemSelected))){
-                MainActivity.connected = true;
-                msgToast("Conectado a " + MainActivity.getBT_devices_names().get(itemSelected));
-                getActivity().getFragmentManager().beginTransaction().replace(android.R.id.content, new index()).commit();
-            }else{
-                MainActivity.connected = false;
-                msgToast("Error de conexión");
-            }
-            MainActivity.bascular.setEnabled(MainActivity.connected);
-        }
+
     }
 
     private boolean connectRemoteDevice(BluetoothDevice device){
+        boolean connect = false;
         /* ToDo: Conectar el dispositivo mediante una comunicación por Socket
          * SPP UUID service - this should work for most devices
          * "00001101-0000-1000-8000-00805F9B34FB"
@@ -118,16 +107,7 @@ public class enlazarbt extends ListFragment {
          * 2. Se conecta con dicho dispositivo
          * 3. Esa conexión requiere un manejo de excepción
          */
-        boolean connect;
-        try {
-            // SPP UUID service - this should work for most devices
-            String mmUUID = "00001101-0000-1000-8000-00805F9B34FB";
-            MainActivity.setsocket(device.createRfcommSocketToServiceRecord(UUID.fromString(mmUUID)));
-            MainActivity.getsocket().connect();
-            connect = true;
-        } catch (Exception e) {
-            connect = false;
-        }
+
         return connect;
     }
     @Override
@@ -135,8 +115,7 @@ public class enlazarbt extends ListFragment {
         /* ToDo: Mantener seleccionado un elemento del ListView
          * Cuando se de click a un elemento del ListView, este debe mantenerse seleccionado
          */
-        v.setSelected(true);
-        itemSelected = position;
+
         super.onListItemClick(l, v, position, id);
     }
 

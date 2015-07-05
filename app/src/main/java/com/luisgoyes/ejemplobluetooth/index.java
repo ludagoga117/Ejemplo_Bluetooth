@@ -55,25 +55,14 @@ public class index extends Fragment {
     }
 
     private void ToggleButtonFunction() {
-        /* ToDo: Encender el LED del Arduino
-         * 1. Se cambia el valor de la variable ledState
-         * 2. Si el socket está disponible se intenta un envío
-         * 3. Si ledState = true, se debe enviar un digitalWrite(13,HIGH)
-         *    Si ledState = false, se debe enviar un digitalWrite(13,LOW)
-         * 4. BluetoothSocket.getOutputStream().write(Bytes) requiere un manejo de excepción
-         */
         ledState = !ledState;
-        if (MainActivity.getsocket().isConnected()){
-            try{
-                if(ledState){
-                    MainActivity.getsocket().getOutputStream().write("*|1|13|1|#".getBytes());
-                }else{
-                    MainActivity.getsocket().getOutputStream().write("*|1|13|0|#".getBytes());
-                }
-            }catch (IOException e){
-                msgToast("Error en envío del comando");
-            }
-        }
+        /* ToDo: Encender el LED del Arduino
+         * 1. Si el socket está disponible se intenta un envío
+         * 2. Si ledState = true, se debe enviar un digitalWrite(13,HIGH)
+         *    Si ledState = false, se debe enviar un digitalWrite(13,LOW)
+         * 3. BluetoothSocket.getOutputStream().write(Bytes) requiere un manejo de excepción
+         */
+
         setEstadoText();
     }
 
