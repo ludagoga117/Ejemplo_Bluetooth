@@ -15,5 +15,7 @@
     <string name="sEnlazarPiccolo">Enlazar</string>
     <string name="sDisponibles">Dispositivos disponibles</string>
     <string name="errorSeleccion">No ha seleccionado ningún dispotivo</string>
+    <string name="sDisconnect">Desconectar</string>
+    <string name="sRecibo">Recibido:</string>
 
 </resources>

@@ -14,13 +14,18 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    public static boolean connected = false;
+    public static Button bascular;
 
     private enlazarbt fragEnlazar = new enlazarbt();
 
@@ -79,6 +84,9 @@ public class MainActivity extends ActionBarActivity {
             case R.id.iEnlazar:
                 EnlazarMenuItem();
                 break;
+            case R.id.iDisconnect:
+                desconectarBluetooth();
+                break;
             case R.id.iHelp:
                 HelpMenuItem();
                 break;
@@ -87,6 +95,17 @@ public class MainActivity extends ActionBarActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void desconectarBluetooth() {
+        if (clientSocket!=null) //If the btSocket is busy
+        {
+            try{
+                clientSocket.close(); //close connection
+            }catch (IOException e){
+                msg("Error");
+            }
+        }
     }
 
     private void EnlazarMenuItem() {
@@ -99,6 +118,7 @@ public class MainActivity extends ActionBarActivity {
                 Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(turnBTon, 1);
             }else {
+                desconectarBluetooth();
                 discoverBTDevices();
                 getFragmentManager().beginTransaction().replace(android.R.id.content, fragEnlazar).commit();
             }
@@ -135,5 +155,9 @@ public class MainActivity extends ActionBarActivity {
                     }
                 })
                 .show();
+    }
+
+    private void msg(String s){
+        Toast.makeText(this, s, Toast.LENGTH_LONG).show();
     }
 }

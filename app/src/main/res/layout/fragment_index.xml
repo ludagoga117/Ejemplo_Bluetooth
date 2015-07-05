@@ -38,5 +38,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"/>
+<!--    <TextView
+        android:text="@string/sRecibo"
+        android:paddingTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+    <EditText
+        android:id="@+id/etRecibido"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:textSize="30dp"
+        android:editable="false"
+        android:background="@color/accent_material_dark"
+        android:textColor="@color/primary_dark_material_dark"/>
+        -->
 
 </LinearLayout>
