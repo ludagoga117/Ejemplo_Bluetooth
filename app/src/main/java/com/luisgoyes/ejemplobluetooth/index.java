@@ -1,16 +1,10 @@
 package com.luisgoyes.ejemplobluetooth;
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -56,13 +50,17 @@ public class index extends Fragment {
 
     private void ToggleButtonFunction() {
         ledState = !ledState;
-        /* ToDo: Encender el LED del Arduino
-         * 1. Si el socket está disponible se intenta un envío
-         * 2. Si ledState = true, se debe enviar un digitalWrite(13,HIGH)
-         *    Si ledState = false, se debe enviar un digitalWrite(13,LOW)
-         * 3. BluetoothSocket.getOutputStream().write(Bytes) requiere un manejo de excepción
-         */
-
+        if (MainActivity.getsocket().isConnected()){
+            try{
+                if(ledState){
+                    MainActivity.getsocket().getOutputStream().write("*|1|13|1|#".getBytes());
+                }else{
+                    MainActivity.getsocket().getOutputStream().write("*|1|13|0|#".getBytes());
+                }
+            }catch (IOException e){
+                msgToast("Error en envío del comando");
+            }
+        }
         setEstadoText();
     }
 

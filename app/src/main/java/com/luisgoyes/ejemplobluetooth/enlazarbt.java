@@ -1,25 +1,18 @@
 package com.luisgoyes.ejemplobluetooth;
 
 
-import android.app.Activity;
 import android.app.ListFragment;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.os.Handler;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class enlazarbt extends ListFragment {
@@ -73,10 +66,7 @@ public class enlazarbt extends ListFragment {
     }
 
     public void actualizarContenido(){
-        /* ToDo: Actualizar el contenido del adaptador del ListView
-         * Cada vez que se añade un nuevo string a BT_devices_names se debe actualizar el ListView
-         */
-
+        adapter.notifyDataSetChanged();
     }
 
     private void funcionCancelar() {
@@ -84,30 +74,33 @@ public class enlazarbt extends ListFragment {
     }
 
     private void funcionEnlazar() {
-        /* ToDo: Conectarse con uno de los dispositivos descubiertos, que se muestra en el ListView
-         * Si no se selecciona ningún ítem, saldrá un mensaje de error.
-         * En caso contrario, se trata de conectar con el dispositivo seleccionado
-         * Si se logra conexión, saldrá un mensaje indicando conexión exitosa y se retorna al fragment principal
-         * Si no se logra conexión, saldrá un mensaje indicando error en conexión
-         */
-
+        if(itemSelected==-1){
+            msgToast(getResources().getString(R.string.errorSeleccion));
+        }else if(itemSelected>=0){
+            BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
+            if(connectRemoteDevice(MainActivity.getBTdevice(itemSelected))){
+                MainActivity.connected = true;
+                msgToast("Conectado a " + MainActivity.getBT_devices_names().get(itemSelected));
+                getActivity().getFragmentManager().beginTransaction().replace(android.R.id.content, new index()).commit();
+            }else{
+                MainActivity.connected = false;
+                msgToast("Error de conexión");
+            }
+            MainActivity.bascular.setEnabled(MainActivity.connected);
+        }
     }
 
     private boolean connectRemoteDevice(BluetoothDevice device){
         boolean connect = false;
-        /* ToDo: Conectar el dispositivo mediante una comunicación por Socket
-         * SPP UUID service - this should work for most devices
-         * "00001101-0000-1000-8000-00805F9B34FB"
-         * The UUID class defines universally unique identifiers
-         * 00001101: Serial Port Protocol
-         * Base UUID Value (Used in promoting 16-bit and 32-bit UUIDs to 128-bit UUIDs)	0x0000000000001000800000805F9B34FB
-         *
-         * 1. Se crea la conexión con el dispositivo seleccionado "device"
-         * y para poder manipularla se guarda en la variable socket
-         * 2. Se conecta con dicho dispositivo
-         * 3. Esa conexión requiere un manejo de excepción
-         */
-
+        try {
+            // SPP UUID service - this should work for most devices
+            String mmUUID = "00001101-0000-1000-8000-00805F9B34FB";
+            MainActivity.setsocket(device.createRfcommSocketToServiceRecord(UUID.fromString(mmUUID)));
+            MainActivity.getsocket().connect();
+            connect = true;
+        } catch (Exception e) {
+            connect = false;
+        }
         return connect;
     }
     @Override
