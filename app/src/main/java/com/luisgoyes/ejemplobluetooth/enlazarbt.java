@@ -108,7 +108,8 @@ public class enlazarbt extends ListFragment {
         /* ToDo: Mantener seleccionado un elemento del ListView
          * Cuando se de click a un elemento del ListView, este debe mantenerse seleccionado
          */
-
+        v.setSelected(true);
+        itemSelected=position;
         super.onListItemClick(l, v, position, id);
     }
 
